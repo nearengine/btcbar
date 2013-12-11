@@ -40,7 +40,7 @@
 // Initiates an asyncronous HTTP connection
 - (void)requestUpdate
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://data.mtgox.com/api/2/BTCUSD/money/ticker_fast"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://data.mtgox.com/api/2/BTCUSD/money/ticker_fast"]];
     
     // Set the request's user agent
     [request addValue:@"btcbar/2.0 (MtGoxUSDFetcher)" forHTTPHeaderField:@"User-Agent"];
