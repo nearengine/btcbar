@@ -31,6 +31,7 @@
                [[BTCeUSDFetcher alloc] init],
                [[CoinbaseUSDFetcher alloc] init],
                [[MtGoxUSDFetcher alloc] init],
+               [[HuobiRMBFetcher alloc] init],
                nil];
     
     

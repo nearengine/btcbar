@@ -23,6 +23,7 @@
 		83C3E7561859702D00FA2921 /* btclogoAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 83C3E7521859702D00FA2921 /* btclogoAlternate.png */; };
 		83C3E7571859702D00FA2921 /* btclogoAlternate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83C3E7531859702D00FA2921 /* btclogoAlternate@2x.png */; };
 		83C3E759185970C800FA2921 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 83C3E758185970C800FA2921 /* Icon.icns */; };
+		90347B7918ACB073005C42A8 /* HuobiRMBFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 90347B7818ACB073005C42A8 /* HuobiRMBFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,8 @@
 		83C3E7521859702D00FA2921 /* btclogoAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btclogoAlternate.png; path = Icons/btclogoAlternate.png; sourceTree = "<group>"; };
 		83C3E7531859702D00FA2921 /* btclogoAlternate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btclogoAlternate@2x.png"; path = "Icons/btclogoAlternate@2x.png"; sourceTree = "<group>"; };
 		83C3E758185970C800FA2921 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Resources/Icon.icns; sourceTree = "<group>"; };
+		90347B7718ACB073005C42A8 /* HuobiRMBFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HuobiRMBFetcher.h; path = Fetchers/HuobiRMBFetcher.h; sourceTree = "<group>"; };
+		90347B7818ACB073005C42A8 /* HuobiRMBFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HuobiRMBFetcher.m; path = Fetchers/HuobiRMBFetcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +159,8 @@
 				83C3E7461859700100FA2921 /* CoinbaseUSDFetcher.m */,
 				83C3E7471859700100FA2921 /* MtGoxUSDFetcher.h */,
 				83C3E7481859700100FA2921 /* MtGoxUSDFetcher.m */,
+				90347B7718ACB073005C42A8 /* HuobiRMBFetcher.h */,
+				90347B7818ACB073005C42A8 /* HuobiRMBFetcher.m */,
 			);
 			name = Fetchers;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				83C3E7491859700100FA2921 /* BitStampUSDFetcher.m in Sources */,
 				830CE09D171B6C3E00DDD525 /* main.m in Sources */,
 				83C3E74C1859700100FA2921 /* MtGoxUSDFetcher.m in Sources */,
+				90347B7918ACB073005C42A8 /* HuobiRMBFetcher.m in Sources */,
 				83C3E74B1859700100FA2921 /* CoinbaseUSDFetcher.m in Sources */,
 				83C3E74A1859700100FA2921 /* BTCeUSDFetcher.m in Sources */,
 				830CE0A4171B6C3E00DDD525 /* AppDelegate.m in Sources */,

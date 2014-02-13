@@ -9,6 +9,7 @@
 #import "BitStampUSDFetcher.h"
 #import "CoinbaseUSDFetcher.h"
 #import "BTCeUSDFetcher.h"
+#import "HuobiRMBFetcher.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSMenu *btcbarMainMenu;
