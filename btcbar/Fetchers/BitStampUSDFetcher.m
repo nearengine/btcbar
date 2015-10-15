@@ -12,7 +12,7 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"BitStampUSD";
+        self.ticker_menu = @"BitStampBTC";
 
         // Website location
         self.url = @"https://www.bitstamp.net/";

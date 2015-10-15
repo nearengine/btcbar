@@ -1,21 +1,24 @@
 //
-//  BTCeUSDFetcher.m
+//  OKCoinCYNFetcher.m
 //  btcbar
 //
+//  Created by phil on 15/4/16.
+//  Copyright (c) 2015年 nearengine. All rights reserved.
+//
 
-#import "BTCeUSDFetcher.h"
+#import "OKCoinCNYFetcher.h"
 
-@implementation BTCeUSDFetcher
+@implementation OKCoinCNYFetcher
 
 - (id)init
 {
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"BTCeBTC";
+        self.ticker_menu = @"OKCoinBTC";
         
         // Website location
-        self.url = @"https://btc-e.com/";
+        self.url = @"https://www.okcoin.cn/";
         
         // Immediately request first update
         [self requestUpdate];
@@ -37,10 +40,10 @@
 // Initiates an asyncronous HTTP connection
 - (void)requestUpdate
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://btc-e.com/api/2/btc_usd/ticker"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.okcoin.cn/api/v1/ticker.do?symbol=btc_cny"]];
     
     // Set the request's user agent
-    [request addValue:@"btcbar/2.0 (BTCeUSDFetcher)" forHTTPHeaderField:@"User-Agent"];
+    [request addValue:@"btcbar/2.0 (OKCoinCNYFetcher)" forHTTPHeaderField:@"User-Agent"];
     
     // Initialize a connection from our request
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -78,14 +81,21 @@
     // Results parsed successfully from JSON
     if(results)
     {
+        // Get API status
+        NSDictionary *ticker = [results objectForKey:@"ticker"];
+        NSString *resultsStatus = [ticker objectForKey:@"last"];
         
-        if ([[results objectForKey:@"ticker"] objectForKey:@"last"])
+        
+        // If API call succeeded update the ticker...
+        if(resultsStatus)
         {
-            NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
-            currencyStyle.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-            currencyStyle.numberStyle = NSNumberFormatterCurrencyStyle;
-            self.ticker = [currencyStyle stringFromNumber:[[results objectForKey:@"ticker"] objectForKey:@"last"]];
+            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            resultsStatus = [numberFormatter stringFromNumber:[NSDecimalNumber decimalNumberWithString:resultsStatus]];
+            resultsStatus = [NSString stringWithFormat:@"¥%@", resultsStatus];
+            
+            self.ticker = resultsStatus;
         }
+        // Otherwise log an error...
         else
         {
             self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"API Error", NSLocalizedDescriptionKey, @"The JSON received did not contain a result or the API returned an error.", NSLocalizedFailureReasonErrorKey, nil]];
@@ -103,7 +113,7 @@
 // HTTP request failed
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to BTCe.", NSLocalizedFailureReasonErrorKey, nil]];
+    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to OKCoin.", NSLocalizedFailureReasonErrorKey, nil]];
     self.ticker = nil;
 }
 

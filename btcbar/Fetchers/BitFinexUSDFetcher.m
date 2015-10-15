@@ -1,21 +1,24 @@
 //
-//  BTCeUSDFetcher.m
+//  BitFinexUSDFetcher.m
 //  btcbar
 //
+//  Created by Tim Daubenschütz on 22/01/15.
+//  Copyright (c) 2015 nearengine. All rights reserved.
+//
 
-#import "BTCeUSDFetcher.h"
+#import "BitFinexUSDFetcher.h"
 
-@implementation BTCeUSDFetcher
+@implementation BitFinexUSDFetcher
 
 - (id)init
 {
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"BTCeBTC";
+        self.ticker_menu = @"BitFinexBTC";
         
         // Website location
-        self.url = @"https://btc-e.com/";
+        self.url = @"https://www.bitfinex.com/";
         
         // Immediately request first update
         [self requestUpdate];
@@ -37,10 +40,12 @@
 // Initiates an asyncronous HTTP connection
 - (void)requestUpdate
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://btc-e.com/api/2/btc_usd/ticker"]];
+    // More information on the API
+    // can be found here: https://www.bitfinex.com/pages/api
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://api.bitfinex.com/v1/pubticker/BTCUSD/"]];
     
     // Set the request's user agent
-    [request addValue:@"btcbar/2.0 (BTCeUSDFetcher)" forHTTPHeaderField:@"User-Agent"];
+    [request addValue:@"btcbar/2.0 (BitFinexUSDFetcher)" forHTTPHeaderField:@"User-Agent"];
     
     // Initialize a connection from our request
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -78,14 +83,19 @@
     // Results parsed successfully from JSON
     if(results)
     {
+        // Get API status
+        NSString *resultsStatus = [results objectForKey:@"last_price"];
         
-        if ([[results objectForKey:@"ticker"] objectForKey:@"last"])
+        // If API call succeeded update the ticker...
+        if(resultsStatus)
         {
             NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
             currencyStyle.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
             currencyStyle.numberStyle = NSNumberFormatterCurrencyStyle;
-            self.ticker = [currencyStyle stringFromNumber:[[results objectForKey:@"ticker"] objectForKey:@"last"]];
+            resultsStatus = [currencyStyle stringFromNumber:[NSDecimalNumber decimalNumberWithString:resultsStatus]];
+            self.ticker = resultsStatus;
         }
+        // Otherwise log an error...
         else
         {
             self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"API Error", NSLocalizedDescriptionKey, @"The JSON received did not contain a result or the API returned an error.", NSLocalizedFailureReasonErrorKey, nil]];
@@ -103,8 +113,9 @@
 // HTTP request failed
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to BTCe.", NSLocalizedFailureReasonErrorKey, nil]];
+    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to BitFinex.", NSLocalizedFailureReasonErrorKey, nil]];
     self.ticker = nil;
 }
+
 
 @end

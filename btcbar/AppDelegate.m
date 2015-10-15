@@ -27,9 +27,16 @@
     
     // Pass each ticker object into a dictionary, get first updates
     tickers = [NSMutableArray arrayWithObjects:
+               [[HaobtcCNYFetcher alloc] init],
+               [[OKCoinCNYFetcher alloc] init],
+               [[HuobiCNYFetcher alloc] init],
                [[BitStampUSDFetcher alloc] init],
                [[BTCeUSDFetcher alloc] init],
                [[CoinbaseUSDFetcher alloc] init],
+               [[BitFinexUSDFetcher alloc] init],
+              // [[WinkDexUSDFetcher alloc] init],
+               [[Btc38 alloc] init],
+               [[AstockFetcher alloc] init],
                nil];
     
     
@@ -55,7 +62,8 @@
     
     // Add the separator, Open in Browser, and Quit items to main menu
     [btcbarMainMenu addItem:[NSMenuItem separatorItem]];
-    [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Open in Browser" action:@selector(menuActionBrowser:) keyEquivalent:@""]];
+    [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Open in Browser" action:@selector(menuActionBrowser:) keyEquivalent:@"o"]];
+    [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"About" action:@selector(menuActionAbout:) keyEquivalent:@"a"]];
     [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Quit" action:@selector(menuActionQuit:) keyEquivalent:@"q"]];
     
     // Set the default ticker's menu item state to checked
@@ -64,12 +72,12 @@
     // Initialize status bar item with flexible width
     btcbarStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 
-    // Set status bar image and highlighted image
-    btcbarStatusItem.image = [NSImage imageNamed:@"btclogoDim"];
-    btcbarStatusItem.alternateImage = [NSImage imageNamed:@"btclogoAlternate"];
+    // Set status bar image
+    NSImage *image = [NSImage imageNamed:@"btclogo"];
+    [image setTemplate:YES];
+    [btcbarStatusItem setImage:image];
 
     // Set menu options on click
-    btcbarStatusItem.highlightMode = YES;
     btcbarStatusItem.menu = btcbarMainMenu;
     
     // Setup timer to update all tickers every 10 seconds
@@ -110,6 +118,8 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[(id <Fetcher>)[tickers objectAtIndex:currentFetcherTag] url]]];
 }
 
+
+
 // "Quit" action
 - (void)menuActionQuit:(id)sender
 {
@@ -141,14 +151,12 @@
         if ([[pNotification object] ticker] == nil)
         {
             btcbarStatusItem.title = nil;
-            btcbarStatusItem.image = [NSImage imageNamed:@"btclogoDim"];
             btcbarStatusItem.toolTip = [NSString stringWithFormat: @"%@ Error: %@", [[pNotification object] ticker_menu], [[pNotification object] error].localizedFailureReason];
         }
         else
         {
             // Set the status item to the current Fetcher's ticker
             btcbarStatusItem.title = [(id <Fetcher>)[tickers objectAtIndex:currentFetcherTag] ticker];
-            btcbarStatusItem.image = [NSImage imageNamed:@"btclogo"];
             btcbarStatusItem.toolTip = [[tickers objectAtIndex:currentFetcherTag] ticker_menu];
         }
     }
@@ -160,6 +168,39 @@
 {
     for (id <Fetcher> ticker in tickers)
         [ticker requestUpdate];
+}
+
+#define kWebAddress            @"https://github.com/philsong/btcbar/ \nadd Haobtc/Btc38/Stockmarket support base on \nhttps://github.com/nearengine/btcbar"
+
+- (IBAction)menuActionAbout:(id)sender {
+    NSAlert *alert = [NSAlert alertWithMessageText:@"About."
+                                     defaultButton:@"Open Site"
+                                   alternateButton:@"Cancel"
+                                       otherButton:@""
+                         informativeTextWithFormat:kWebAddress];
+    
+    long button = [alert runModal];
+    
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    switch (button) {
+        case NSAlertOtherReturn:
+            NSLog(@"copy");
+            [pasteboard clearContents];
+            [pasteboard writeObjects:[NSArray arrayWithObject:kWebAddress]];
+            break;
+        case NSAlertDefaultReturn:
+        {
+            NSLog(@"Don't copy");
+            NSString* url=@"https://github.com/philsong/btcbar/";
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+            break;
+        }
+        case NSAlertAlternateReturn:
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

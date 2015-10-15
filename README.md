@@ -1,7 +1,7 @@
 btcbar
 ======
 
-A tiny status bar widget for OS X that displays the latest USD/BTC spot price from BitStamp, BTCe, and Coinbase.
+A tiny status bar widget for OS X that displays the latest USD/BTC spot price from several USD and CNY exchanges.
 
 ## Screenshot
 
@@ -19,13 +19,31 @@ Simply place btcbar.app in your `/Applications` folder, and optionally add it to
 
 ## Download
 
-The current version of btcbar (2.1.4) can be downloaded here:
+The current version of btcbar (2.2.1) can be downloaded here:
 
-https://github.com/nearengine/btcbar/releases/download/v2.1.4/btcbar_2_1_4.zip
+https://github.com/nearengine/btcbar/releases/download/v2.2.1/btcbar_2_2_1.zip
 
 It requires OS X 10.7+ and a 64-bit processor.
 
 ## Changelog
+
+### 2.5.0
+* Adds HaobtcCNY 
+
+### 2.4.0
+* Adds China Stock market 
+
+### 2.3.0
+* Adds btc38 XRP/BTS
+
+### 2.2.1
+
+* Fix bug where icon disappears on error
+
+### 2.2.0
+
+* Adds BitFinexUSD, WinkDexUSD, HuobiCNY and OKCoinCNY
+* New status bar icon with Yosemite (dark theme) support
 
 ### 2.1.4
 
@@ -76,4 +94,4 @@ The source is provided for inspection, considering the nature of Bitcoin. You ar
 
 If for some reason you feel like donating a few micro btc to future development, those should go here:
 
-`1AmsBDouePjXxe2R2kFwbuCdBSpsxwtrUt`
+`1D3NtjVFpoXonqk3MZwsYD9iV5WA7MRXUj`

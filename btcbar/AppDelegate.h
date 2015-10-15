@@ -8,6 +8,13 @@
 #import "BitStampUSDFetcher.h"
 #import "CoinbaseUSDFetcher.h"
 #import "BTCeUSDFetcher.h"
+#import "BitFinexUSDFetcher.h"
+#import "WinkDexUSDFetcher.h"
+#import "OKCoinCNYFetcher.h"
+#import "HuobiCNYFetcher.h"
+#import "Btc38.h"
+#import "AstockFetcher.h"
+#import "HaobtcCNYFetcher.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSMenu *btcbarMainMenu;
@@ -15,7 +22,7 @@
     
     NSStatusItem *btcbarStatusItem;
     
-    NSTimer *updateViewTimer;
+  //  NSTimer *updateViewTimer;
     NSTimer *updateDataTimer;
     
     NSMutableArray *tickers;
@@ -24,6 +31,7 @@
 
 - (void)menuActionSetTicker:(id)sender;
 - (void)menuActionBrowser:(id)sender;
+- (void)menuActionAbout:(id)sender;
 - (void)menuActionQuit:(id)sender;
 
 - (void)handleTickerNotification:(NSNotification *)pNotification;

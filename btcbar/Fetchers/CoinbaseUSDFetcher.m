@@ -12,7 +12,7 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"CoinbaseUSD";
+        self.ticker_menu = @"CoinbaseBTC";
         
         // Website location
         self.url = @"https://coinbase.com/";

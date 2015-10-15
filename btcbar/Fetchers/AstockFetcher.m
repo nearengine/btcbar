@@ -1,23 +1,27 @@
 //
-//  BTCeUSDFetcher.m
+//  AstockFetcher.m
 //  btcbar
 //
+//  Created by phil on 15/4/16.
+//  Copyright (c) 2015年 nearengine. All rights reserved.
+//
 
-#import "BTCeUSDFetcher.h"
+#import "AstockFetcher.h"
 
-@implementation BTCeUSDFetcher
+@implementation AstockFetcher
+
 
 - (id)init
 {
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"BTCeBTC";
+        self.ticker_menu = @"China A stock";
         
         // Website location
-        self.url = @"https://btc-e.com/";
+        self.url = @"http://finance.sina.com.cn/realstock/";
         
-        // Immediately request first update
+        // Immediately rebquest first update
         [self requestUpdate];
     }
     
@@ -37,10 +41,10 @@
 // Initiates an asyncronous HTTP connection
 - (void)requestUpdate
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://btc-e.com/api/2/btc_usd/ticker"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://apistore.baidu.com/microservice/stock?stockid=000001"]];
     
     // Set the request's user agent
-    [request addValue:@"btcbar/2.0 (BTCeUSDFetcher)" forHTTPHeaderField:@"User-Agent"];
+    [request addValue:@"btcbar/2.0 (OkcoinCNYFetcher)" forHTTPHeaderField:@"User-Agent"];
     
     // Initialize a connection from our request
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -78,14 +82,26 @@
     // Results parsed successfully from JSON
     if(results)
     {
+        // Get API status
+        NSString *errMsg = [results objectForKey:@"errMsg"];
+        NSLog(errMsg,nil);
         
-        if ([[results objectForKey:@"ticker"] objectForKey:@"last"])
+        NSString *shanghai=[[[[results objectForKey:@"retData"]objectForKey:@"market"] objectForKey:@"shanghai"]objectForKey:@"curdot"];
+        NSString *shenzhen=[[[[results objectForKey:@"retData"]objectForKey:@"market"] objectForKey:@"shenzhen"]objectForKey:@"curdot"];
+
+        // If API call succeeded update the ticker...
+        if(shanghai)
         {
-            NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
-            currencyStyle.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-            currencyStyle.numberStyle = NSNumberFormatterCurrencyStyle;
-            self.ticker = [currencyStyle stringFromNumber:[[results objectForKey:@"ticker"] objectForKey:@"last"]];
+            NSString *shanghaistring = [NSString stringWithFormat:@"ShangHai: %@",shanghai];
+            NSString *shenzhenstring = [NSString stringWithFormat:@"  ShenZhen: %@",shenzhen];
+            
+            NSString *resultsStatus =  [shanghaistring stringByAppendingString:shenzhenstring];
+            
+            //NSLog(resultsStatus,nil);
+            
+            self.ticker = resultsStatus;
         }
+        // Otherwise log an error...
         else
         {
             self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"API Error", NSLocalizedDescriptionKey, @"The JSON received did not contain a result or the API returned an error.", NSLocalizedFailureReasonErrorKey, nil]];
@@ -103,8 +119,9 @@
 // HTTP request failed
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to BTCe.", NSLocalizedFailureReasonErrorKey, nil]];
+    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to BitStamp.", NSLocalizedFailureReasonErrorKey, nil]];
     self.ticker = nil;
 }
+
 
 @end
