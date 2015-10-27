@@ -18,7 +18,7 @@
         self.ticker_menu = @"BTC38";
         
         // Website location
-        self.url = @"http://btc38.com";
+        self.url = @"http://btc38.com?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
         
         // Immediately request first update
         [self requestUpdate];

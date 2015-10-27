@@ -28,15 +28,17 @@
     // Pass each ticker object into a dictionary, get first updates
     tickers = [NSMutableArray arrayWithObjects:
                [[HaobtcCNYFetcher alloc] init],
-               [[OKCoinCNYFetcher alloc] init],
                [[HuobiCNYFetcher alloc] init],
+               [[OKCoinCNYFetcher alloc] init],
+               [[BTCCCNYFetcher alloc] init],
+               [[OKCoinFutureUSDFetcher alloc] init],
+               [[BitFinexUSDFetcher alloc] init],
+               [[CoinbaseUSDFetcher alloc] init],
                [[BitStampUSDFetcher alloc] init],
                [[BTCeUSDFetcher alloc] init],
-               [[CoinbaseUSDFetcher alloc] init],
-               [[BitFinexUSDFetcher alloc] init],
               // [[WinkDexUSDFetcher alloc] init],
-               [[Btc38 alloc] init],
-               [[AstockFetcher alloc] init],
+//               [[Btc38 alloc] init],
+//               [[AstockFetcher alloc] init],
                nil];
     
     
@@ -62,7 +64,7 @@
     
     // Add the separator, Open in Browser, and Quit items to main menu
     [btcbarMainMenu addItem:[NSMenuItem separatorItem]];
-    [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Open in Browser" action:@selector(menuActionBrowser:) keyEquivalent:@"o"]];
+//    [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Trade" action:@selector(menuActionBrowser:) keyEquivalent:@"o"]];
     [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"About" action:@selector(menuActionAbout:) keyEquivalent:@"a"]];
     [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Quit" action:@selector(menuActionQuit:) keyEquivalent:@"q"]];
     
@@ -109,7 +111,8 @@
     
     // Force the status item value to update
     [[NSNotificationCenter defaultCenter] postNotificationName:@"btcbar_ticker_update" object:[tickers objectAtIndex:currentFetcherTag]];
-
+    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[(id <Fetcher>)[tickers objectAtIndex:currentFetcherTag] url]]];
 }
 
 // "Open in Browser" action
@@ -170,7 +173,7 @@
         [ticker requestUpdate];
 }
 
-#define kWebAddress            @"https://github.com/philsong/btcbar/ \nadd Haobtc/Btc38/Stockmarket support base on \nhttps://github.com/nearengine/btcbar"
+#define kWebAddress            @"https://github.com/philsong/btcbar/ \nadd Haobtc/Btc38/Stockmarket support base on \nhttps://github.com/nearengine/btcbar \n"
 
 - (IBAction)menuActionAbout:(id)sender {
     NSAlert *alert = [NSAlert alertWithMessageText:@"About."

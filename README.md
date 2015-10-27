@@ -21,11 +21,14 @@ Simply place btcbar.app in your `/Applications` folder, and optionally add it to
 
 The current version of btcbar (2.5.0) can be downloaded here:
 
-https://github.com/philsong/btcbar/releases/download/2.5.0/btcbar.app.zip
+https://github.com/philsong/btcbar/releases/download/2.6.0/btcbar.app.zip
 
 It requires OS X 10.7+ and a 64-bit processor.
 
 ## Changelog
+
+### 2.6.0
+* Fixs Huobi, adds BTCC, OKCoin future, supports the k-line of sosobtc, removes btc38 and stock market.
 
 ### 2.5.0
 * Adds HaobtcCNY 

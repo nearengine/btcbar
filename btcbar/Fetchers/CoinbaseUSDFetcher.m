@@ -12,10 +12,10 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"CoinbaseBTC";
+        self.ticker_menu = @"Coinbase";
         
         // Website location
-        self.url = @"https://coinbase.com/";
+        self.url = @"http://k.sosobtc.com/btc_coinbase.html?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
         
         // Immediately request first update
         [self requestUpdate];

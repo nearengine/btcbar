@@ -15,10 +15,10 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"HuobiBTC";
+        self.ticker_menu = @"Huobi";
 
         // Website location
-        self.url = @"http://www.huobi.com";
+        self.url = @"http://k.sosobtc.com/btc_huobi.html?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
 
         // Immediately request first update
         [self requestUpdate];
@@ -40,7 +40,7 @@
 // Initiates an asyncronous HTTP connection
 - (void)requestUpdate
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://market.huobi.com/staticmarket/detail.html"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.huobi.com/staticmarket/ticker_btc_json.js"]];
 
     // Set the request's user agent
     [request addValue:@"btcbar/2.0 (HuobiCNYFetcher)" forHTTPHeaderField:@"User-Agent"];
@@ -78,16 +78,7 @@
         return;
     }
 
-    NSRange range = [responseStr rangeOfString:@"(?<=\\().*(?=\\))" options:NSRegularExpressionSearch];
-    if (range.location > responseStr.length || range.location + range.length > responseStr.length) {
-        return;
-    }
-
-    NSString *resultsStr = [responseStr substringWithRange:range];
-
-    if (!resultsStr) {
-        return;
-    }
+    NSString *resultsStr = responseStr;
 
     // Parse the JSON into results
     NSError *jsonParsingError = nil;
@@ -96,9 +87,12 @@
     // Results parsed successfully from JSON
     if (results)
     {
-        NSNumber *ticker = [results objectForKey:@"p_new"];
+        NSDictionary *ticker_resp = [results objectForKey:@"ticker"];
+        NSNumber *ticker = [ticker_resp objectForKey:@"last"];
+        
         if (ticker) {
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+            [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
             NSString *resultsStatus = [numberFormatter stringFromNumber:ticker];
             resultsStatus = [NSString stringWithFormat:@"¥%@", resultsStatus];
             

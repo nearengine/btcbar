@@ -15,10 +15,10 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"OKCoinBTC";
+        self.ticker_menu = @"OKCoin";
         
         // Website location
-        self.url = @"https://www.okcoin.cn/";
+        self.url = @"http://k.sosobtc.com/btc_okcoin.html?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
         
         // Immediately request first update
         [self requestUpdate];
@@ -89,8 +89,6 @@
         // If API call succeeded update the ticker...
         if(resultsStatus)
         {
-            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-            resultsStatus = [numberFormatter stringFromNumber:[NSDecimalNumber decimalNumberWithString:resultsStatus]];
             resultsStatus = [NSString stringWithFormat:@"¥%@", resultsStatus];
             
             self.ticker = resultsStatus;

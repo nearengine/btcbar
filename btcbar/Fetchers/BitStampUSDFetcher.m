@@ -12,10 +12,10 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"BitStampBTC";
+        self.ticker_menu = @"BitStamp";
 
         // Website location
-        self.url = @"https://www.bitstamp.net/";
+        self.url = @"http://k.sosobtc.com/btc_bitstamp.html?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
 
         // Immediately request first update
         [self requestUpdate];

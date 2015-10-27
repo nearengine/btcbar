@@ -15,6 +15,8 @@
 #import "Btc38.h"
 #import "AstockFetcher.h"
 #import "HaobtcCNYFetcher.h"
+#import "BTCCCNYFetcher.h"
+#import "OKCoinFutureUSDFetcher.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSMenu *btcbarMainMenu;

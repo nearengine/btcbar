@@ -15,10 +15,10 @@
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"HaobtcBTC";
+        self.ticker_menu = @"Haobtc";
 
         // Website location
-        self.url = @"http://www.haobtc.com";
+        self.url = @"https://haobtc.com/wallet?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
 
         // Immediately request first update
         [self requestUpdate];

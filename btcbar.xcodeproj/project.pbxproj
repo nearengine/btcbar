@@ -12,6 +12,8 @@
 		4A5F94F11B0C54A00077BEBF /* HuobiCNYFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F94ED1B0C54A00077BEBF /* HuobiCNYFetcher.m */; };
 		4A5F94F21B0C54A00077BEBF /* WinkDexUSDFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F94EF1B0C54A00077BEBF /* WinkDexUSDFetcher.m */; };
 		4A5F94F51B0C56DA0077BEBF /* OKCoinCNYFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F94F31B0C56DA0077BEBF /* OKCoinCNYFetcher.m */; };
+		4AE253D91BDF8973002B8FDD /* BTCCCNYFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE253D71BDF8973002B8FDD /* BTCCCNYFetcher.m */; settings = {ASSET_TAGS = (); }; };
+		4AE253DC1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE253DA1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.m */; settings = {ASSET_TAGS = (); }; };
 		4AEFB3E11AE0C48D00D6BE3A /* AstockFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEFB3DC1AE0C48D00D6BE3A /* AstockFetcher.m */; };
 		4AEFB3E21AE0C48D00D6BE3A /* Btc38.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEFB3DE1AE0C48D00D6BE3A /* Btc38.m */; };
 		830CE091171B6C3E00DDD525 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830CE090171B6C3E00DDD525 /* Cocoa.framework */; };
@@ -37,6 +39,10 @@
 		4A5F94EF1B0C54A00077BEBF /* WinkDexUSDFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinkDexUSDFetcher.m; path = Fetchers/WinkDexUSDFetcher.m; sourceTree = "<group>"; };
 		4A5F94F31B0C56DA0077BEBF /* OKCoinCNYFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKCoinCNYFetcher.m; path = Fetchers/OKCoinCNYFetcher.m; sourceTree = "<group>"; };
 		4A5F94F41B0C56DA0077BEBF /* OKCoinCNYFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKCoinCNYFetcher.h; path = Fetchers/OKCoinCNYFetcher.h; sourceTree = "<group>"; };
+		4AE253D71BDF8973002B8FDD /* BTCCCNYFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTCCCNYFetcher.m; path = Fetchers/BTCCCNYFetcher.m; sourceTree = "<group>"; };
+		4AE253D81BDF8973002B8FDD /* BTCCCNYFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTCCCNYFetcher.h; path = Fetchers/BTCCCNYFetcher.h; sourceTree = "<group>"; };
+		4AE253DA1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKCoinFutureUSDFetcher.m; path = Fetchers/OKCoinFutureUSDFetcher.m; sourceTree = "<group>"; };
+		4AE253DB1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OKCoinFutureUSDFetcher.h; path = Fetchers/OKCoinFutureUSDFetcher.h; sourceTree = "<group>"; };
 		4AEFB3DA1AE0ADA800D6BE3A /* btcbar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = btcbar.entitlements; sourceTree = "<group>"; };
 		4AEFB3DB1AE0C48D00D6BE3A /* AstockFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AstockFetcher.h; path = Fetchers/AstockFetcher.h; sourceTree = "<group>"; };
 		4AEFB3DC1AE0C48D00D6BE3A /* AstockFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AstockFetcher.m; path = Fetchers/AstockFetcher.m; sourceTree = "<group>"; };
@@ -153,6 +159,10 @@
 		838F4297182E5A5000B4FC58 /* Fetchers */ = {
 			isa = PBXGroup;
 			children = (
+				4AE253DA1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.m */,
+				4AE253DB1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.h */,
+				4AE253D71BDF8973002B8FDD /* BTCCCNYFetcher.m */,
+				4AE253D81BDF8973002B8FDD /* BTCCCNYFetcher.h */,
 				4A2F00531BCF40EA0069E7DC /* HaobtcCNYFetcher.m */,
 				4A2F00561BCF41500069E7DC /* HaobtcCNYFetcher.h */,
 				4A5F94F31B0C56DA0077BEBF /* OKCoinCNYFetcher.m */,
@@ -263,10 +273,12 @@
 				4AEFB3E11AE0C48D00D6BE3A /* AstockFetcher.m in Sources */,
 				4AEFB3E21AE0C48D00D6BE3A /* Btc38.m in Sources */,
 				83C3E7491859700100FA2921 /* BitStampUSDFetcher.m in Sources */,
+				4AE253D91BDF8973002B8FDD /* BTCCCNYFetcher.m in Sources */,
 				4A5F94F11B0C54A00077BEBF /* HuobiCNYFetcher.m in Sources */,
 				4A5F94F01B0C54A00077BEBF /* BitFinexUSDFetcher.m in Sources */,
 				830CE09D171B6C3E00DDD525 /* main.m in Sources */,
 				83C3E74B1859700100FA2921 /* CoinbaseUSDFetcher.m in Sources */,
+				4AE253DC1BDF8AED002B8FDD /* OKCoinFutureUSDFetcher.m in Sources */,
 				4A5F94F51B0C56DA0077BEBF /* OKCoinCNYFetcher.m in Sources */,
 				83C3E74A1859700100FA2921 /* BTCeUSDFetcher.m in Sources */,
 				4A2F00551BCF40EA0069E7DC /* HaobtcCNYFetcher.m in Sources */,
