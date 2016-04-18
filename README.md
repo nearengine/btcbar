@@ -29,7 +29,7 @@ It requires OS X 10.7+ and a 64-bit processor.
 
 ### 2.7.0
 
-Add the Yunbi and Poloniex ETH price.
+* Add the Yunbi and Poloniex ETH price.
 
 ### 2.6.0
 * Fixs Huobi, adds BTCC, OKCoin future, supports the k-line of sosobtc, removes btc38 and stock market.
