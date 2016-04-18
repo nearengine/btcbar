@@ -1,29 +1,29 @@
 //
-//  HuobiCNYFetcher.m
+//  OKCoinUSDFetcher.m
 //  btcbar
 //
-//  Created by lwei on 2/13/14.
-//  Copyright (c) 2014 nearengine. All rights reserved.
+//  Created by Tim Daubenschütz on 22/01/15.
+//  Copyright (c) 2015 nearengine. All rights reserved.
 //
 
-#import "HaobtcCNYFetcher.h"
+#import "PoloniexEthFetcher.h"
 
-@implementation HaobtcCNYFetcher
+@implementation PoloniexEthFetcher
 
 - (id)init
 {
     if (self = [super init])
     {
         // Menu Item Name
-        self.ticker_menu = @"Haobtc";
-
+        self.ticker_menu = @"Poloniex ETH";
+        
         // Website location
-        self.url = @"https://haobtc.com/wallet?from=1NDnnWCUu926z4wxA3sNBGYWNQD3mKyes8";
-
+        self.url = @"https://yunbi.com/markets/ethcny";
+        
         // Immediately request first update
         [self requestUpdate];
     }
-
+    
     return self;
 }
 
@@ -32,7 +32,7 @@
 {
     // Update the ticker value
     _ticker = tickerString;
-
+    
     // Trigger notification to update ticker
     [[NSNotificationCenter defaultCenter] postNotificationName:@"btcbar_ticker_update" object:self];
 }
@@ -40,14 +40,14 @@
 // Initiates an asyncronous HTTP connection
 - (void)requestUpdate
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://haobtc.com/api/v1/price/cny"]];
-
+   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://poloniex.com/public?command=returnTicker"]];
+    
     // Set the request's user agent
-    [request addValue:@"btcbar/2.0 (HaobtcCNYFetcher)" forHTTPHeaderField:@"User-Agent"];
-
+    [request addValue:@"btcbar/2.0 (PoloniexEthFetcher)" forHTTPHeaderField:@"User-Agent"];
+    
     // Initialize a connection from our request
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-
+    
     // Go go go
     [connection start];
 }
@@ -73,37 +73,29 @@
 // Parse data after load
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSString *responseStr = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
-    if (!responseStr) {
-        return;
-    }
-
     // Parse the JSON into results
     NSError *jsonParsingError = nil;
-    id results = [NSJSONSerialization JSONObjectWithData:[responseStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&jsonParsingError];
-
+    NSDictionary *results = [[NSDictionary alloc] init];
+    results = [NSJSONSerialization JSONObjectWithData:self.responseData options:0 error:&jsonParsingError];
+    
     // Results parsed successfully from JSON
-    if (results)
+    if(results)
     {
-        NSString *sell_price = [results objectForKey:@"sell"];
-        NSString *buy_price = [results objectForKey:@"buy"];
-        if (sell_price && buy_price) {
-//            NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-//            NSString *resultsStatus = [numberFormatter stringFromNumber:sell_price];
-//            resultsStatus = [NSString stringWithFormat:@"¥%@", resultsStatus];
-//            
-//            self.error = nil;
-//            self.ticker = resultsStatus;
+        // Get API status
+        NSDictionary *ticker = [results objectForKey:@"USDT_ETH"];
+        NSString *resultsStatus = [ticker objectForKey:@"last"];
+        
+        
+        
+        // If API call succeeded update the ticker...
+        if(resultsStatus)
+        {
+            NSNumberFormatter *currencyStyle = [[NSNumberFormatter alloc] init];
+            currencyStyle.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
+            currencyStyle.numberStyle = NSNumberFormatterCurrencyStyle;
             
-            NSString *sell_price_str = [NSString stringWithFormat:@"/%@",sell_price];
-            NSString *buy_price_str = [NSString stringWithFormat:@"¥%@",buy_price];
-            
-            NSString *resultsStatus =  [buy_price_str stringByAppendingString:sell_price_str];
-            
-            NSLog(resultsStatus,nil);
-            
-            self.ticker = resultsStatus;
-            
+            self.error = nil;
+            self.ticker = [currencyStyle stringFromNumber:[NSDecimalNumber decimalNumberWithString:resultsStatus]];
         }
         // Otherwise log an error...
         else
@@ -123,8 +115,9 @@
 // HTTP request failed
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to Haobtc.", NSLocalizedFailureReasonErrorKey, nil]];
+    self.error = [NSError errorWithDomain:@"com.nearengine.btcbar" code:0 userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Connection Error", NSLocalizedDescriptionKey, @"Could not connect to OKCoin.", NSLocalizedFailureReasonErrorKey, nil]];
     self.ticker = nil;
 }
+
 
 @end

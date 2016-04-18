@@ -36,6 +36,8 @@
                [[CoinbaseUSDFetcher alloc] init],
                [[BitStampUSDFetcher alloc] init],
                [[BTCeUSDFetcher alloc] init],
+               [[YunbiEthFetcher alloc] init],
+               [[PoloniexEthFetcher alloc] init],
               // [[WinkDexUSDFetcher alloc] init],
 //               [[Btc38 alloc] init],
 //               [[AstockFetcher alloc] init],
@@ -173,7 +175,7 @@
         [ticker requestUpdate];
 }
 
-#define kWebAddress            @"https://github.com/philsong/btcbar/ \nadd Haobtc/Btc38/Stockmarket support base on \nhttps://github.com/nearengine/btcbar \n"
+#define kWebAddress            @"BitBar is an open source project: \nhttps://github.com/philsong/btcbar/ \n\nBase on \nhttps://github.com/nearengine/btcbar \n"
 
 - (IBAction)menuActionAbout:(id)sender {
     NSAlert *alert = [NSAlert alertWithMessageText:@"About."
