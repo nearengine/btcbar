@@ -61,7 +61,6 @@
 
     // Add the separator, Open in Browser, and Quit items to main menu
     [btcbarMainMenu addItem:[NSMenuItem separatorItem]];
-    [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Open in Browser" action:@selector(menuActionBrowser:) keyEquivalent:@""]];
     [btcbarMainMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Quit" action:@selector(menuActionQuit:) keyEquivalent:@"q"]];
 
     // Set the default ticker's menu item state to checked
@@ -70,17 +69,11 @@
     // Initialize status bar item with flexible width
     btcbarStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 
-    // Set status bar image
-    NSImage *image = [NSImage imageNamed:@"btclogo"];
-    [image setTemplate:YES];
-    [btcbarStatusItem.button setImage:image];
-    [btcbarStatusItem.button setImagePosition:NSImageLeft];
-
     // Set menu options on click
     [btcbarStatusItem setMenu:btcbarMainMenu];
 
     // Setup timer to update all tickers every 60 seconds
-    updateDataTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateDataTimerAction:) userInfo:nil repeats:YES];
+    updateDataTimer = [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(updateDataTimerAction:) userInfo:nil repeats:YES];
 }
 
 
@@ -153,7 +146,14 @@
         else
         {
             // Set the status item to the current Fetcher's ticker
-            [btcbarStatusItem.button setTitle: [(id <Fetcher>)[tickers objectAtIndex:currentFetcherTag] ticker]];
+            NSMenuItem *new_menuItem = [[NSMenuItem alloc] initWithTitle:[(id <Fetcher>)[tickers objectAtIndex:currentFetcherTag] ticker] action:@selector(menuActionSetTicker:) keyEquivalent:@""];
+            NSDictionary *attributes = @{
+                                         NSFontAttributeName: [NSFont boldSystemFontOfSize:7]
+                                         };
+            NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:[new_menuItem title] attributes:attributes];
+            [new_menuItem setAttributedTitle:attributedTitle];
+
+            [btcbarStatusItem.button setAttributedTitle:attributedTitle];
             [btcbarStatusItem.button setToolTip: [[tickers objectAtIndex:currentFetcherTag] ticker_menu]];
         }
     }
