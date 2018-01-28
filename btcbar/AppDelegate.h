@@ -12,6 +12,7 @@
 #import "OKCoinUSDFetcher.h"
 #import "KrakenUSDFetcher.h"
 #import "CEXIOUSDFetcher.h"
+#import "ParibuTRYFetcher.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     NSMenu *btcbarMainMenu;
