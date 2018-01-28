@@ -24,6 +24,7 @@
 		83C3E759185970C800FA2921 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 83C3E758185970C800FA2921 /* Icon.icns */; };
 		B65127471A71A1BB00FB6A24 /* OKCoinUSDFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B65127461A71A1BB00FB6A24 /* OKCoinUSDFetcher.m */; };
 		B662833B1A712EBB00520512 /* BitFinexUSDFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B662833A1A712EBB00520512 /* BitFinexUSDFetcher.m */; };
+		FDFA5725201E804C001DC245 /* ParibuTRYFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = FDFA5724201E804C001DC245 /* ParibuTRYFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,8 @@
 		B65127461A71A1BB00FB6A24 /* OKCoinUSDFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OKCoinUSDFetcher.m; path = Fetchers/OKCoinUSDFetcher.m; sourceTree = "<group>"; };
 		B66283391A712EBB00520512 /* BitFinexUSDFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BitFinexUSDFetcher.h; path = Fetchers/BitFinexUSDFetcher.h; sourceTree = "<group>"; };
 		B662833A1A712EBB00520512 /* BitFinexUSDFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BitFinexUSDFetcher.m; path = Fetchers/BitFinexUSDFetcher.m; sourceTree = "<group>"; };
+		FDFA5723201E804C001DC245 /* ParibuTRYFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParibuTRYFetcher.h; path = Fetchers/ParibuTRYFetcher.h; sourceTree = "<group>"; };
+		FDFA5724201E804C001DC245 /* ParibuTRYFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ParibuTRYFetcher.m; path = Fetchers/ParibuTRYFetcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +126,6 @@
 			children = (
 				830CE0A2171B6C3E00DDD525 /* AppDelegate.h */,
 				830CE0A3171B6C3E00DDD525 /* AppDelegate.m */,
-				838F4296182E2F6E00B4FC58 /* Fetcher.h */,
 				838F4297182E5A5000B4FC58 /* Fetchers */,
 				830CE0C4171B714E00DDD525 /* Icons */,
 				83C3E74D1859701400FA2921 /* Views */,
@@ -156,6 +158,7 @@
 		838F4297182E5A5000B4FC58 /* Fetchers */ = {
 			isa = PBXGroup;
 			children = (
+				838F4296182E2F6E00B4FC58 /* Fetcher.h */,
 				8315A073200F200A00277C4C /* CEXIOUSDFetcher.h */,
 				8315A072200F200900277C4C /* CEXIOUSDFetcher.m */,
 				8317A2251F68F83E0056F110 /* KrakenUSDFetcher.h */,
@@ -170,6 +173,8 @@
 				83C3E7441859700100FA2921 /* BittrexUSDFetcher.m */,
 				83C3E7451859700100FA2921 /* CoinbaseUSDFetcher.h */,
 				83C3E7461859700100FA2921 /* CoinbaseUSDFetcher.m */,
+				FDFA5723201E804C001DC245 /* ParibuTRYFetcher.h */,
+				FDFA5724201E804C001DC245 /* ParibuTRYFetcher.m */,
 			);
 			name = Fetchers;
 			sourceTree = "<group>";
@@ -277,13 +282,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-btcbar-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5ED6ABBEEE578D8CEDDDB01E /* [CP] Copy Pods Resources */ = {
@@ -316,6 +324,7 @@
 				83C3E74A1859700100FA2921 /* BittrexUSDFetcher.m in Sources */,
 				8315A074200F200A00277C4C /* CEXIOUSDFetcher.m in Sources */,
 				8317A2271F68F83E0056F110 /* KrakenUSDFetcher.m in Sources */,
+				FDFA5725201E804C001DC245 /* ParibuTRYFetcher.m in Sources */,
 				830CE0A4171B6C3E00DDD525 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

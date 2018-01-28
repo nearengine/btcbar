@@ -35,6 +35,7 @@
                [[OKCoinUSDFetcher alloc] init],
                [[KrakenUSDFetcher alloc] init],
                [[CEXIOUSDFetcher alloc] init],
+               [[ParibuTRYFetcher alloc] init],
                nil];
 
     // If ticker preference does not exist, default to 0
